@@ -10,8 +10,7 @@ if len(unique_chars) > 10:
 else:
     for perm in permutations("0123456789", len(unique_chars)):
         mapping = dict(zip(unique_chars, perm))
-        sum_encoded = sum(int("".join(mapping[char] for char in s)) for s in arr)
-        if sum_encoded == int("".join(mapping[char] for char in target_string)):
+        if sum(int("".join(mapping[char] for char in s)) for s in arr) == int("".join(mapping[char] for char in target_string)):
             result = "Yes"
             break
     else:
