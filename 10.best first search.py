@@ -7,28 +7,22 @@ def best_first_search(graph, start, goal, heuristic):
     while queue:
         _, current = queue.get()
 
-        if current in visited:
-            continue
-
-        print(current, end=' ')
-        visited.add(current)
-
         if current == goal:
-            print("\nGoal reached!")
+            print("Goal reached!")
             return
 
-        for neighbor, _ in graph.get(current, {}).items():
-            if neighbor not in visited:
-                queue.put((heuristic[neighbor], neighbor))
+        if current not in visited:
+            print(current, end=' ')
+            visited.add(current)
+            for neighbor in graph.get(current, {}):
+                if neighbor not in visited:
+                    queue.put((heuristic[neighbor], neighbor))
 
-# Example usage:
-graph = {'A': {'B': 4, 'H': 8}, 'B': {'A': 4, 'C': 8, 'H': 11}, 'C': {'B': 8, 'D': 7, 'F': 4, 'I': 2},
-         'D': {'C': 7, 'E': 9, 'F': 14}, 'E': {'D': 9, 'F': 10}, 'F': {'C': 4, 'D': 14, 'E': 10, 'G': 2},
-         'G': {'F': 2, 'H': 1, 'I': 6}, 'H': {'A': 8, 'B': 11, 'G': 1, 'I': 7}, 'I': {'C': 2, 'G': 6, 'H': 7}}
+# Simple example usage:
+graph = {'A': {'B': 2, 'C': 1}, 'B': {'A': 2, 'D': 3}, 'C': {'A': 1, 'E': 4}, 'D': {'B': 3}, 'E': {'C': 4}}
+heuristic = {'A': 5, 'B': 4, 'C': 3, 'D': 2, 'E': 1}
 
-heuristic = {'A': 12, 'B': 10, 'C': 7, 'D': 6, 'E': 4, 'F': 6, 'G': 4, 'H': 8, 'I': 3}
-
-start, goal = 'A', 'I'
+start, goal = 'A', 'E'
 
 print("Best-First Search path from", start, "to", goal, ":")
 best_first_search(graph, start, goal, heuristic)
