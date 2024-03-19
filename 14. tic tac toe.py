@@ -13,9 +13,10 @@ def random_place(board, player):
     return board
 
 def check_win(board, player):
-    return any(np.all(board == player, axis=axis) for axis in (0, 1, None)) or \
+    return any(np.all(board == player, axis=axis).any() for axis in (0, 1, None)) or \
            np.all(np.diag(board) == player) or \
            np.all(np.diag(np.fliplr(board)) == player)
+
 
 def play_game():
     board = create_board()
