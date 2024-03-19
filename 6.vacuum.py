@@ -1,42 +1,22 @@
-def clean(floor): 
-    i, j, row, col = 0, 0, len(floor), len(floor[0])
-    for i in range(row):
-        if(i%2 == 0):
-            for j in range(col):
-                if(floor[i][j] == 1):
-                    print_F(floor, i, j)
-                    floor[i][j] = 0
-                print_F(floor, i, j)
-        else:
-            for j in range(col-1, -1, -1):
-                if(floor[i][j] == 1):
-                    print_F(floor, i, j)
-                    floor[i][j] = 0
-                print_F(floor, i, j)
-def print_F(floor, row, col): 
-    """A function to print the GRID , (row, col) represent the current vacuum cleaner position""" 
-    print("The Floor matrix is as below:")
+def clean(floor):
+    for i in range(len(floor)):
+        for j in range(len(floor[0])):
+            if floor[i][j] == 1:
+                print_floor(floor, i, j)
+                floor[i][j] = 0
+                print_floor(floor, i, j)
+
+def print_floor(floor, row, col):
     for r in range(len(floor)):
-        for c in range(len(floor[r])):
-            if r == row and c == col:
-                print(f" >{floor[r][c]}< ", end = '')
-            else:
-                print(f"  {floor[r][c]}  ", end = '')
-        print(end = '\n')
-    print(end = '\n')
+        for c in range(len(floor[0])):
+            print(f" >{floor[r][c]}< " if r == row and c == col else f"  {floor[r][c]}  ", end='')
+        print()
+
 def main():
-    floor = []
     m = int(input("Enter the No. of Rows: "))
     n = int(input("Enter the No. of Columns: "))
     print("Enter clean status for each cell (1 - dirty, 0 - clean)")
-    for i in range(m):
-        f = list(map(int, input().split(" ")))
-        floor.append(f)
-    print()
+    floor = [list(map(int, input().split())) for _ in range(m)]
     clean(floor)
-# Test 1
-   # floor = [[1, 0, 0, 0],
-   #          [0, 1, 0, 1],
-   #          [1, 0, 1, 1]]
-   # clean(floor)
+
 main()
